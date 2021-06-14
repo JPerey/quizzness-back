@@ -11,12 +11,16 @@ router.get('/', function (req, res) {
   });
 });
 
-router.post("/", function (req, res) {
-  Quiz.create(req.body, function (err, quiz) {
-    res.status(201).json(quiz);
-
-  });
-
-});
+//this is the CREATE method
+router.post('/', (req, res) => {
+  console.log(req.body);
+  const quiz = new Quiz({ score: req.body.score, quizCategory: req.body.quizCategory });
+  quiz.save()
+      .then(r => res.status(201).json(r))
+      .catch(err => {
+          console.log(err.message);
+          res.status(500).json(err)
+      })
+})
 
 module.exports = router;
