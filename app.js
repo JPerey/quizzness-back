@@ -1,10 +1,12 @@
 var express = require('express');
 var logger = require('morgan');
 const cors = require("cors");
-
 var quizRouter = require('./routes/quizzes');
 
 var app = express();
+
+require('dotenv').config();
+require('./config/database');
 
 app.use(logger('dev'));
 app.use(express.json());

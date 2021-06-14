@@ -1,36 +1,22 @@
 var express = require('express');
+const quiz = require("../models/quiz");
 var router = express.Router();
+var Quiz = require("../models/quiz");
 
-router.get('/', function(req, res) {
-  res.status(200).json([
-    {
-      question: "sample 1",
-      correct_answer: "correct",
-      incorrect_answers: [
-          "no",
-          "no2",
-          "no3",
-      ]
-  },
-  {
-    question: "sample 2",
-    correct_answer: "correct",
-    incorrect_answers: [
-        "no",
-        "no2",
-        "no3",
-    ]
-},
-{
-  question: "sample 3",
-  correct_answer: "correct",
-  incorrect_answers: [
-      "no",
-      "no2",
-      "no3",
-  ]
-},
-  ]);
+router.get('/', function (req, res) {
+  
+  quiz.find({}, function(err, quizzes){
+    res.status(200).json(quizzes);
+
+  });
+});
+
+router.post("/", function (req, res) {
+  Quiz.create(req.body, function (err, quiz) {
+    res.status(201).json(quiz);
+
+  });
+
 });
 
 module.exports = router;
